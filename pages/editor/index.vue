@@ -91,7 +91,7 @@ export default {
     addTag () {
       if (this.article.tagList.includes(this.tag) || !this.tag) return false
       this.article.tagList.push(this.tag)
-      this.tag = ''
+      this.tag = null
     },
     removeTag (ind) {
       this.article.tagList.splice(ind, 1)
