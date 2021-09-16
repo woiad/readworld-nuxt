@@ -61,11 +61,24 @@
 
         <div class="article-preview" v-for="article in articles" :key="article.slug">
           <div class="article-meta">
-            <nuxt-link :to="{ name: 'UserProfile', params: { username: article.author.username } }">
+            <nuxt-link
+              :to="{
+                name: 'UserProfile',
+                params: { username: article.author.username },
+                query: { tab: 'author' }
+              }"
+            >
               <img :src="article.author.image" />
             </nuxt-link>
             <div class="info">
-              <nuxt-link :to="{ name: 'UserProfile', params: { username: article.author.username } }" class="author">
+              <nuxt-link
+                :to="{
+                  name: 'UserProfile',
+                  params: { username: article.author.username },
+                  query: { tab: 'author' }
+                }"
+                class="author"
+              >
                 {{ article.author.username }}
               </nuxt-link>
               <span class="date">{{ article.createdAt | date('MMM DD, YYYY') }}</span>
@@ -83,6 +96,11 @@
             <h1>{{ article.title }}</h1>
             <p>{{ article.description }}</p>
             <span>Read more...</span>
+            <ul class="tag-list">
+              <li v-for="(tag, index) in article.tagList" :key="tag + index" class="tag-default tag-pill tag-outline">
+                {{ tag }}
+              </li>
+            </ul>
           </nuxt-link>
         </div>
 

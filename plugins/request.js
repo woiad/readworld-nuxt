@@ -1,7 +1,7 @@
 import axios from 'axios'
 
 export const request = axios.create({
-  baseURL: 'http://realworld.api.fed.lagounews.com'
+  baseURL: 'http://realworld.api.fed.lagounews.com' //'http://realworld.api.fed.lagounews.com' //'https://conduit.productionready.io'
 })
 
 // 通过插件机制获取到上下文对象 (query、params、req、res、store...)

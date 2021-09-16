@@ -17,10 +17,17 @@
         <div class="col-md-12" v-html="article.body"></div>
       </div>
 
+      <ul class="tag-list">
+        <li class="tag-default tag-pill tag-outline" v-for="(tag, index) in article.tagList" :key="index">
+          {{ tag }}
+        </li>
+      </ul>
+
       <hr />
 
       <div class="article-actions">
         <article-meta :article="article" />
+
       </div>
 
       <div class="row">
@@ -61,7 +68,6 @@ export default {
     }
   },
   async asyncData ({ params }) {
-    console.log(params);
     const { data } = await getArticleDetail(params.slug)
     const { article } = data
     const md = new MardownIt()

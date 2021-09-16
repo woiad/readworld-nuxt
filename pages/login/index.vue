@@ -14,7 +14,7 @@
             <li v-for="(message, field) in errors" :key="field">{{ field }} {{ message }}</li>
           </ul>
 
-          <form @submit.prevent="onSubmit">
+          <form @submit.prevent="onSubmit" @keyup.enter="onSubmit">
             <fieldset v-if="!isLogin" class="form-group">
               <input v-model="user.username" class="form-control form-control-lg" type="text" placeholder="Your Name" required>
             </fieldset>
@@ -31,7 +31,7 @@
 
             >
             </fieldset>
-            <button class="btn btn-lg btn-primary pull-xs-right">
+            <button class="btn btn-lg btn-primary pull-xs-right" :disabled="isLoading">
               {{ isLogin ? 'Sign in' : 'Sign up' }}
             </button>
           </form>
@@ -59,7 +59,8 @@ export default {
         email: '',
         password: ''
       },
-      errors: {}
+      errors: {},
+      isLoading: false
     }
   },
   computed: {
@@ -70,18 +71,19 @@ export default {
   methods: {
     async onSubmit() {
       try {
+        this.isLoading = true
         const { data } = this.isLogin
           ? await login(this.user.email, this.user.password)
           : await register(this.user.username, this.user.email, this.user.password)
-          
+
         this.$store.commit('setUser', data.user)
 
         // 为了防止页面数据刷新丢失，需要把数据持久化
         Cookie.set('setUser', JSON.stringify(data.user))
-
+        this.isLoading = false
         this.$router.push({ path: '/' })
       } catch (err) {
-        console.dir(err.response.data.errors)
+        this.isLoading = false
         this.errors = err.response.data.errors
       }
     }

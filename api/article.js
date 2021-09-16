@@ -86,3 +86,25 @@ export function getComments(slug) {
     url: `/api/articles/${slug}/comments`
   })
 }
+
+/**
+ * @summary 添加文章
+ * @param {string} title
+ * @param {string} description
+ * @param {string} body
+ * @param {array} tagList
+ */
+export function addArticles(title, description, body, tagList) {
+  return request({
+    method: 'post',
+    url: `/api/articles`,
+    data: {
+      article: {
+        title,
+        description,
+        body,
+        tagList
+      }
+    }
+  })
+}

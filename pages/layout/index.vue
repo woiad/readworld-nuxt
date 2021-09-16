@@ -21,7 +21,18 @@
               </nuxt-link>
             </li>
             <li class="nav-item">
-              <nuxt-link class="nav-link" to="/profile/123">
+              <nuxt-link
+                class="nav-link"
+                :to="{
+                  name: 'UserProfile',
+                  params: {
+                    username: user.username
+                  },
+                  query: {
+                    tab: 'author'
+                  }
+                }"
+              >
                 {{ user.username }}
               </nuxt-link>
             </li>
