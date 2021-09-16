@@ -72,12 +72,25 @@
                 name: 'UserProfile',
                 params: {
                   username: profile.username
+                },
+                query: {
+                  tab: 'author'
                 }
               }">
                 <img :src="article.author.image" />
               </nuxt-link>
               <div class="info">
-                <nuxt-link :to="{ name: 'UserProfile', params: { username: profile.username } }">
+                <nuxt-link
+                  :to="{
+                    name: 'UserProfile',
+                    params: {
+                      username: profile.username
+                    },
+                    query: {
+                      tab: 'author'
+                    }
+                   }"
+                >
                   {{ article.author.username }}
                 </nuxt-link>
                 <span class="date">{{ article.createdAt | date('MMM DD, YYYY') }}</span>
